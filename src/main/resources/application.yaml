@@ -1,0 +1,34 @@
+# production defaults
+# see the `dev` profile below for development
+
+app:
+  vaadin:
+    productionMode: "true" # must be string!
+
+server:
+  address: 127.0.0.1
+
+vaadin:
+  servlet:
+    params:
+      productionMode: "${app.vaadin.productionMode}"
+  # see https://github.com/peholmst/vaadin4spring/issues/108#issuecomment-69953039
+  static:
+    servlet:
+      params:
+        productionMode: "${app.vaadin.productionMode}"
+
+spring:
+  groovy:
+    template:
+      check-template-location: false
+
+---
+
+spring:
+    profiles: dev
+
+app:
+  vaadin:
+    productionMode: "false" # must be string
+

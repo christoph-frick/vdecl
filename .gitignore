@@ -1,0 +1,9 @@
+/.gradle/
+/build/
+/classes/
+/*.iml
+/*.iws
+/*.ipr
+/.idea/
+/.nb-gradle-properties
+/.nb-gradle/
