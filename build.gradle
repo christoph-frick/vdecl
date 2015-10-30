@@ -16,7 +16,7 @@ ext {
     ext {
         groovyVersion = '2.4.5'
         gradleWrapperVersion = '2.8'
-        vaadinVersion = '7.6.0.alpha2'
+        vaadinVersion = '7.6.0.beta1'
         vaadinSpringVersion = '1.0.0'
     }
 }
@@ -31,7 +31,8 @@ apply from: 'gradle/springboot-vaadin-fixes.gradle'
 
 repositories {
     jcenter()
-    maven { url 'http://maven.vaadin.com/vaadin-addons' }
+    maven { url 'https://maven.vaadin.com/vaadin-addons' }
+    maven { url 'https://maven.vaadin.com/vaadin-prereleases' }
 }
 
 sourceCompatibility = 1.8
@@ -64,6 +65,8 @@ dependencies {
     compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile("com.vaadin:vaadin-spring-boot-starter:${vaadinSpringVersion}")
+    compile 'commons-io:commons-io:2.4'
+    compile 'net.engio:mbassador:1.2.4'
 }
 
 // Exclude all deps, that pull in newer versions of the critical libraries for
