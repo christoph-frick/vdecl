@@ -15,7 +15,7 @@ class GroovyTemplateFileToComponentStrategy implements IFileToComponentStrategy 
 
     @Override
     boolean canHandle(File f) {
-        return f.name =~ /.*\.groovy/
+        return f.name =~ /.*\.gtpl/
     }
 
     @Override
