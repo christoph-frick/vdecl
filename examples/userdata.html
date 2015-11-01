@@ -1,0 +1,22 @@
+<v-vertical-layout margin>
+	<v-label style-name="h1">User Data</v-label>
+	<v-horizontal-layout spacing size-full>
+		<v-form-layout>
+			<v-combo-box caption="Salutation" required>
+				<!-- TODO: how to add items here? -->
+			</v-combo-box>
+			<v-text-field caption="Title"/>
+			<v-text-field caption="First Name" required />
+			<v-text-field caption="Middle Name"/>
+			<v-text-field caption="Last Name" required />
+		</v-form-layout>
+		<v-form-layout>
+			<v-text-area caption="Address" />
+			<v-text-field caption="Email" input-prompt="user@example.com"/>
+		</v-form-layout>
+	</v-horizontal-layout>
+	<v-horizontal-layout spacing size-full>
+		<v-button :left>Cancel</v-button>
+		<v-button :right icon="fonticon://FontAwesome/f0c7" style-name="primary">Save</v-button>
+	</v-horizontal-layout>
+</v-vertical-layout>
