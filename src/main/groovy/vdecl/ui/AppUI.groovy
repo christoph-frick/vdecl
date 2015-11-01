@@ -39,9 +39,11 @@ class AppUI extends UI {
         setContent(new Label("Waiting for file change in ${config.watchDir} every ${config.interval}ms ..."))
     }
 
+    private static Set<FileEvent.Type> reactTo = [FileEvent.Type.CREATE, FileEvent.Type.CHANGE].toSet()
+
     @Handler
     void handleFileEvent(FileEvent e) {
-        if (e.type==FileEvent.Type.CHANGE) {
+        if (reactTo.contains(e.type)) {
             access{
                 try {
                     fileToComponentStrategies.find{ it.canHandle(e.file) }.with{
