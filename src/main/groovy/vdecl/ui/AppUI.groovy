@@ -14,7 +14,7 @@ import net.engio.mbassy.listener.Handler
 import org.springframework.beans.factory.annotation.Autowired
 import vdecl.Config
 import vdecl.FileEvent
-import vdecl.IFileToComponentStrategy
+import vdecl.FileToComponentService
 
 @Push
 @Slf4j
@@ -26,7 +26,7 @@ class AppUI extends UI {
     MBassador<FileEvent> eventBus
 
     @Autowired
-    List<IFileToComponentStrategy> fileToComponentStrategies
+    FileToComponentService fileToComponentService
 
     @Autowired
     Config config
@@ -46,7 +46,7 @@ class AppUI extends UI {
         if (reactTo.contains(e.type)) {
             access{
                 try {
-                    fileToComponentStrategies.find{ it.canHandle(e.file) }.with{
+                    fileToComponentService.getStrategyForFile(e.file)?.with{
                         setContent(it.render(e.file))
                         new Notification("Updated from $e.file.name", Notification.Type.TRAY_NOTIFICATION).with{
                             setDelayMsec(500)

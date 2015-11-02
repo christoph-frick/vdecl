@@ -7,8 +7,8 @@ import com.vaadin.ui.declarative.Design
 class HTMLFileToComponentStrategy implements IFileToComponentStrategy {
 
     @Override
-    boolean canHandle(File f) {
-        return f.name =~ /.*\.html/
+    String getSuffix() {
+        "html"
     }
 
     @Override

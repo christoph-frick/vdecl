@@ -5,8 +5,8 @@ import com.vaadin.ui.Component
 class GroovyFileToComponentStrategy implements IFileToComponentStrategy {
 
     @Override
-    boolean canHandle(File f) {
-        return f.name =~ /.*\.groovy/
+    String getSuffix() {
+        "groovy"
     }
 
     @Override

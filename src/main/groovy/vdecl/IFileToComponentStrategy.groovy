@@ -3,6 +3,6 @@ package vdecl
 import com.vaadin.ui.Component
 
 interface IFileToComponentStrategy {
-    boolean canHandle(File f)
+    String getSuffix()
     Component render(File f)
 }
