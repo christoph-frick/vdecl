@@ -31,6 +31,7 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
     MBassador<FileEvent> eventBus
 
     private final Table table
+    private final Label headline
 
     private static final List<String> displayCols = ["displayName", "lastModified"]
     private static final String sortCol = "lastModified"
@@ -38,6 +39,10 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
     HomeView() {
         setCompositionRoot(
                 new VerticalLayout(
+                        headline = new Label().with{
+                            addStyleName(ValoTheme.LABEL_H2)
+                            it
+                        },
                         new HorizontalLayout(
                                 new Button("Watch for any change").with{
                                     addClickListener{watch()}
@@ -116,6 +121,7 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
     @Override
     void afterPropertiesSet() throws Exception {
         eventBus.subscribe(this)
+        headline.value = "Watching ${config.watchDir}"
     }
 
     @Override
