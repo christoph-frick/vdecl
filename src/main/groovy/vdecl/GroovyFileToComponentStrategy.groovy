@@ -10,6 +10,11 @@ class GroovyFileToComponentStrategy implements IFileToComponentStrategy {
     }
 
     @Override
+    String getDescription() {
+        "Groovy script"
+    }
+
+    @Override
     Component render(File f) {
         new GroovyShell().run(f, []) as Component
     }

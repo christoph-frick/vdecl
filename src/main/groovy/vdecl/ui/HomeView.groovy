@@ -1,13 +1,15 @@
 package vdecl.ui
-
 import com.vaadin.data.util.BeanItemContainer
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
+import com.vaadin.shared.ui.label.ContentMode
 import com.vaadin.spring.annotation.SpringView
 import com.vaadin.ui.*
 import com.vaadin.ui.themes.ValoTheme
 import groovy.transform.Canonical
+import groovy.transform.CompileDynamic
 import groovy.util.logging.Slf4j
+import groovy.xml.MarkupBuilder
 import net.engio.mbassy.bus.MBassador
 import net.engio.mbassy.listener.Handler
 import org.springframework.beans.factory.DisposableBean
@@ -32,6 +34,7 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
 
     private final Table table
     private final Label headline
+    private final Label legend
 
     private static final List<String> displayCols = ["displayName", "lastModified"]
     private static final String sortCol = "lastModified"
@@ -65,6 +68,10 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
                             addValueChangeListener{watch(table.value as FileBean)}
                             setContainerDataSource(new BeanItemContainer<FileBean>(FileBean), displayCols)
                             setSizeFull()
+                            it
+                        },
+                        legend = new Label().with{
+                            setContentMode(ContentMode.HTML)
                             it
                         },
                 ).with{
@@ -124,6 +131,22 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
     void afterPropertiesSet() throws Exception {
         eventBus.subscribe(this)
         headline.value = "Watching ${config.watchDir}"
+        updateLegend()
+    }
+
+    @CompileDynamic
+    private void updateLegend() {
+        def sb = new StringWriter()
+        new MarkupBuilder(sb).div{
+            h3("Supported formats (suffix)")
+            dt{
+                fileToComponentService.legend.each{ suffix, description ->
+                    dt{ code(suffix) }
+                    dd(description)
+                }
+            }
+        }
+        legend.value = sb.toString()
     }
 
     @Override
