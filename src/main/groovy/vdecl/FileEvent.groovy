@@ -1,5 +1,8 @@
 package vdecl
 
+import groovy.transform.ToString
+
+@ToString
 class FileEvent {
 
     enum Type { CREATE, DELETE, CHANGE }
