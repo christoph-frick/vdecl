@@ -3,14 +3,16 @@ import com.vaadin.ui.Component
 import com.vaadin.ui.declarative.Design
 import groovy.text.markup.MarkupTemplateEngine
 import groovy.text.markup.TemplateConfiguration
+import org.springframework.beans.factory.annotation.Autowired
 
 @org.springframework.stereotype.Component
 class GroovyTemplateFileToComponentStrategy implements IFileToComponentStrategy {
 
     private MarkupTemplateEngine mte
 
-    GroovyTemplateFileToComponentStrategy() {
-         mte = new MarkupTemplateEngine(new TemplateConfiguration())
+    @Autowired
+    GroovyTemplateFileToComponentStrategy(Config config) {
+         mte = new MarkupTemplateEngine(Thread.currentThread().getContextClassLoader(), config.watchDir, new TemplateConfiguration())
     }
 
     @Override
