@@ -29,4 +29,12 @@ class Config implements InitializingBean {
         log.info "Watching $watchDir in $interval intervals"
         assert watchDir.isDirectory()
     }
+
+    String relativeFileName(File f) {
+        f.canonicalFile.toString().replace("${watchDir}/", "")
+    }
+
+    File absoluteFile(String relFileName) {
+        new File(watchDir, relFileName)
+    }
 }
