@@ -37,6 +37,7 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
     private static final String sortCol = "lastModified"
 
     HomeView() {
+        setSizeFull()
         setCompositionRoot(
                 new VerticalLayout(
                         headline = new Label().with{
@@ -67,6 +68,7 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
                             it
                         },
                 ).with{
+                    setSizeFull()
                     setSpacing(true)
                     setMargin(true)
                     setExpandRatio(table, 1.0f)
