@@ -1,20 +1,15 @@
 package vdecl.ui
 import com.vaadin.annotations.Push
 import com.vaadin.annotations.Theme
-import com.vaadin.server.Page
+import com.vaadin.navigator.Navigator
 import com.vaadin.server.VaadinRequest
 import com.vaadin.spring.annotation.SpringUI
-import com.vaadin.ui.Label
-import com.vaadin.ui.Notification
+import com.vaadin.spring.navigator.SpringViewProvider
+import com.vaadin.ui.CssLayout
 import com.vaadin.ui.UI
 import com.vaadin.ui.themes.ValoTheme
 import groovy.util.logging.Slf4j
-import net.engio.mbassy.bus.MBassador
-import net.engio.mbassy.listener.Handler
 import org.springframework.beans.factory.annotation.Autowired
-import vdecl.Config
-import vdecl.FileEvent
-import vdecl.FileToComponentService
 
 @Push
 @Slf4j
@@ -23,49 +18,17 @@ import vdecl.FileToComponentService
 class AppUI extends UI {
 
     @Autowired
-    MBassador<FileEvent> eventBus
-
-    @Autowired
-    FileToComponentService fileToComponentService
-
-    @Autowired
-    Config config
+    SpringViewProvider viewProvider
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        log.debug "Subscribe to event bus"
-        eventBus.subscribe(this)
-        // TODO: generate a directory listing; provide a view "watch" and pass the file as param
-        setContent(new Label("Waiting for file change in ${config.watchDir} every ${config.interval}ms ..."))
-    }
-
-    private static Set<FileEvent.Type> reactTo = [FileEvent.Type.CREATE, FileEvent.Type.CHANGE].toSet()
-
-    @Handler
-    void handleFileEvent(FileEvent e) {
-        if (reactTo.contains(e.type)) {
-            access{
-                try {
-                    fileToComponentService.getStrategyForFile(e.file)?.with{
-                        setContent(it.render(e.file))
-                        new Notification("Updated from $e.file.name", Notification.Type.TRAY_NOTIFICATION).with{
-                            setDelayMsec(500)
-                            show(Page.current)
-                        }
-                    }
-                }
-                catch (Throwable throwable) {
-                    Notification.show("Failed to update $e.file.name", throwable.message, Notification.Type.ERROR_MESSAGE)
-                    log.error throwable.message, throwable
-                }
-            }
+        def root = new CssLayout().with{
+            setSizeFull()
+            it
         }
-    }
-
-    @Override
-    void detach() {
-        log.debug "Unsubscribe from event bus"
-        eventBus?.unsubscribe(this)
-        super.detach()
+        setContent(root)
+        new Navigator(this, root).with{
+            addProvider(viewProvider)
+        }
     }
 }
