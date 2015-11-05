@@ -26,10 +26,14 @@ Currently two file types are supported:
 html
  The classic declarative HTML5-ish structure directly supported by Vaadin.
 
-groovy
+gtpl
  This uses the Groovy MarkupTemplateEngine to render the file (without
  model).  It's a great way to mock data, since you can make use of the
  templating features to cut repetitive code.
+
+groovy
+ Just use plain old Groovy to write your UI.  A ``GroovyShell`` will pick that
+ file type up and execute it.
 
 Why?
 ====
