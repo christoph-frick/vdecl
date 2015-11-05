@@ -5,9 +5,6 @@ app:
   vaadin:
     productionMode: "true" # must be string!
 
-server:
-  address: 127.0.0.1
-
 vaadin:
   servlet:
     params:
