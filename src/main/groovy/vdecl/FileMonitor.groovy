@@ -27,17 +27,17 @@ class FileMonitor implements DisposableBean {
             addListener(new FileAlterationListenerAdaptor() {
                 @Override
                 void onFileCreate(File file) {
-                    eventBus.publishAsync(FileEvent.build(FileEvent.Type.CREATE, file))
+                    notify(FileEvent.Type.CREATE, file)
                 }
 
                 @Override
                 void onFileChange(File file) {
-                    eventBus.publishAsync(FileEvent.build(FileEvent.Type.CHANGE, file))
+                    notify(FileEvent.Type.CHANGE, file)
                 }
 
                 @Override
                 void onFileDelete(File file) {
-                    eventBus.publishAsync(FileEvent.build(FileEvent.Type.DELETE, file))
+                    notify(FileEvent.Type.DELETE, file)
                 }
             })
             it
@@ -51,4 +51,9 @@ class FileMonitor implements DisposableBean {
         log.info "Stopping file monitor"
         fam?.stop()
     }
+
+    void notify(FileEvent.Type type, File file) {
+        eventBus.publishAsync(FileEvent.build(type, file))
+    }
+
 }
