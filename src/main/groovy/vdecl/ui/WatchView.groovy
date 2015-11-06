@@ -62,9 +62,9 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
                 Notification.show("Updated from $f.name", Notification.Type.TRAY_NOTIFICATION)
             }
         }
-        catch (Throwable throwable) {
-            Notification.show("Failed to update $f.name", throwable.message, Notification.Type.ERROR_MESSAGE)
-            log.error throwable.message, throwable
+        catch (Exception e) {
+            Notification.show("Failed to update $f.name", e.message, Notification.Type.ERROR_MESSAGE)
+            log.error e.message, e
         }
     }
 
