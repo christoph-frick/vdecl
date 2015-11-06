@@ -4,15 +4,8 @@ import com.vaadin.ui.Component
 @org.springframework.stereotype.Component
 class GroovyFileToComponentStrategy implements IFileToComponentStrategy {
 
-    @Override
-    String getSuffix() {
-        "groovy"
-    }
-
-    @Override
-    String getDescription() {
-        "Groovy script"
-    }
+    final String suffix = 'groovy'
+    final String description = 'Groovy script'
 
     @Override
     Component render(File f) {

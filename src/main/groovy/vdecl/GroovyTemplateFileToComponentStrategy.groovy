@@ -8,21 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired
 @org.springframework.stereotype.Component
 class GroovyTemplateFileToComponentStrategy implements IFileToComponentStrategy {
 
+    final String suffix = 'gtpl'
+    final String description = 'Groovy template'
+
     private MarkupTemplateEngine mte
 
     @Autowired
     GroovyTemplateFileToComponentStrategy(Config config) {
          mte = new MarkupTemplateEngine(Thread.currentThread().getContextClassLoader(), config.watchDir, new TemplateConfiguration())
-    }
-
-    @Override
-    String getSuffix() {
-        "gtpl"
-    }
-
-    @Override
-    String getDescription() {
-        "Groovy template"
     }
 
     @Override
