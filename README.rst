@@ -2,9 +2,11 @@
 Vaadin Declarative Design... for developers
 ===========================================
 
-This tool is for developers, who want to write declarative UIs with instant
-visual feedback.  A defined directory will be watched for file changes and the
-last changed file will be attempted to render.
+This tool is for developers, who want to write (declarative) UIs with instant
+visual feedback.  A defined directory will be watched for file changes and on
+write all connected browsers will refresh -- no reload, no compile, zero
+roundtrip.
+
 
 How to use
 ==========
@@ -23,13 +25,14 @@ list to watch for any change.
 .. image:: doc/img/vdecl-in-action.gif
 
 The ``examples`` directory contains some small examples to start with.  Open
-one of the files in your favourite editor and make a change.  Your browser
-refreshes with each change to any file in the configured directory and
-displays it.
+the one selected to watch in the browser in your favourite editor and make a
+change.  Your browser refreshes with each change to that file.  Errors in your
+code will be shown in a notification (and in the log).
 
 To watch for any change is great to work with multiple files (e.g. when using
 includes in groovy templates).  Watching just one file gives you an URL you
-can share with others.
+can share with others or to use with multiple devices or browsers.  All
+connected clients will refresh automatically.
 
 
 Supported formats
@@ -54,6 +57,7 @@ groovy
  file type up and execute it.  It must return a ``Component``.
  (`groovy example
  <https://github.com/christoph-frick/vdecl/blob/master/examples/fontawesome.groovy>`_)
+
 
 Why?
 ====
