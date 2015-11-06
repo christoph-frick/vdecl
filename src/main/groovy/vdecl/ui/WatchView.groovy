@@ -57,7 +57,7 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
 
     void update(File f) {
         try {
-            fileToComponentService.getStrategyForFile(f)?.with{
+            fileToComponentService.getStrategyForFile(f).ifPresent{
                 setCompositionRoot(it.render(f))
                 Notification.show("Updated from $f.name", Notification.Type.TRAY_NOTIFICATION)
             }

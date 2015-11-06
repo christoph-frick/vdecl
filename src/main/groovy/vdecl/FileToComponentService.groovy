@@ -28,12 +28,12 @@ class FileToComponentService {
         suffixPattern.matcher(f.name).matches()
     }
 
-    IFileToComponentStrategy getStrategyForFile(File f) {
+    Optional<IFileToComponentStrategy> getStrategyForFile(File f) {
         def m = suffixPattern.matcher(f.name)
         if (!m.matches()) {
-            return null
+            return Optional.empty()
         }
         def suffix = m.group(1)
-        return suffixToStrategy.get(suffix)
+        Optional.ofNullable(suffixToStrategy.get(suffix))
     }
 }
