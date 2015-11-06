@@ -20,6 +20,12 @@ spring:
     template:
       check-template-location: false
 
+logging:
+  level:
+    vdecl: DEBUG
+    com: WARN
+    org: WARN
+
 watch: ./ # directory to watch
 interval: 250 # interval in ms passed to the file alteration monitor
 
