@@ -67,12 +67,12 @@ Vaadin by heart, clicking stuff together in a WYSIWYG editor is not every
 developers dream.  Taking from awesome tools like ClojureScripts *Figwheel*,
 that give the developer instantaneous feedback, providing a tool, that 
 
- - allows for quickly testing UIs or ideas
+- allows for quickly testing UIs or ideas
 
- - filling them with different mocked data (and keep them around for later)
-   
- - or just eliminate tiresome reload round trips to tackle some "why is the
-   Panel in that TabSheet not scrolling" problems
+- filling them with different mocked data (and keep them around for later)
+  
+- or just eliminate tiresome reload round trips to tackle some "why is the
+  Panel in that TabSheet not scrolling" problems
 
 increases developer productivity.
 
