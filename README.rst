@@ -16,24 +16,44 @@ the ``watch`` spring boot var to the directory, where your files are:
 
         WATCH=examples java -jar build/libs/vdecl.jar
 
-Open your browser at http://localhost:8080.  The ``examples`` directory
-contains some small examples to start with.  Open one of the files in your
-faviourite editor and make a change.  Your browser refreshes with each change
-to any file in the configured directory and displays it.
+Open your browser at http://localhost:8080.  You will see a list of all the
+files in that directory.  Either select one file or click the button above the
+list to watch for any change.
 
-Currently two file types are supported:
+.. image:: doc/img/vdecl-in-action.gif
+
+The ``examples`` directory contains some small examples to start with.  Open
+one of the files in your favourite editor and make a change.  Your browser
+refreshes with each change to any file in the configured directory and
+displays it.
+
+To watch for any change is great to work with multiple files (e.g. when using
+includes in groovy templates).  Watching just one file gives you an URL you
+can share with others.
+
+
+Supported formats
+=================
+
+The following file types (by suffix) are supported:
 
 html
  The classic declarative HTML5-ish structure directly supported by Vaadin.
+ (`html example
+ <https://github.com/christoph-frick/vdecl/blob/master/examples/userdata.html>`_)
 
 gtpl
  This uses the Groovy MarkupTemplateEngine to render the file (without
  model).  It's a great way to mock data, since you can make use of the
  templating features to cut repetitive code.
+ (`groovy template example
+ <https://github.com/christoph-frick/vdecl/blob/master/examples/headerfooter.gtpl>`_)
 
 groovy
  Just use plain old Groovy to write your UI.  A ``GroovyShell`` will pick that
- file type up and execute it.
+ file type up and execute it.  It must return a ``Component``.
+ (`groovy example
+ <https://github.com/christoph-frick/vdecl/blob/master/examples/fontawesome.groovy>`_)
 
 Why?
 ====
@@ -41,10 +61,17 @@ Why?
 While the Designer for sure is nice, once you know all the components from
 Vaadin by heart, clicking stuff together in a WYSIWYG editor is not every
 developers dream.  Taking from awesome tools like ClojureScripts *Figwheel*,
-that give the developer instantaneous feedback, providing a tool, that allows for
-quickly testing UIs, filling them with different mocked data, or just
-eliminate tiresome reload round trips to tackle some "why is the Panel in that
-TabSheet not scrolling" problems, makes developers live a little easier.
+that give the developer instantaneous feedback, providing a tool, that 
+
+ - allows for quickly testing UIs or ideas
+
+ - filling them with different mocked data (and keep them around for later)
+   
+ - or just eliminate tiresome reload round trips to tackle some "why is the
+   Panel in that TabSheet not scrolling" problems
+
+increases developer productivity.
+
 
 License
 =======
