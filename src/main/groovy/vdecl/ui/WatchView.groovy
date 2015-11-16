@@ -43,9 +43,6 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
         getUI()?.access{
             log.debug("$fe")
             if (fe.type==FileEvent.Type.DELETE) {
-                if (solo) {
-                    getUI()?.navigator?.navigateTo("")
-                }
                 Notification.show("Deleted $fe.file.name", Notification.Type.TRAY_NOTIFICATION)
             } else {
                 if (!solo || config.relativeFileName(fe.file)==solo) {
