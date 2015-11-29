@@ -11,7 +11,9 @@ class HTMLFileToComponentStrategy implements IFileToComponentStrategy {
 
     @Override
     Component render(File f) {
-        Design.read(new FileInputStream(f))
+        new FileInputStream(f).withCloseable {
+            Design.read(it)
+        }
     }
 
 }

@@ -20,11 +20,17 @@ class GroovyTemplateFileToComponentStrategy implements IFileToComponentStrategy 
 
     @Override
     Component render(File f) {
-        def tpl = mte.createTemplate(f.newReader())
-        def bos = new ByteArrayOutputStream()
-        def os = new OutputStreamWriter(bos)
-        tpl.make().writeTo(os)
-        Design.read(new ByteArrayInputStream(bos.toByteArray()))
+        f.newReader().withCloseable {
+            def tpl = mte.createTemplate(it)
+            new ByteArrayOutputStream().withCloseable { bos ->
+                new OutputStreamWriter(bos).withCloseable {
+                    tpl.make().writeTo(it)
+                    new ByteArrayInputStream(bos.toByteArray()).withCloseable {
+                        Design.read(it)
+                    }
+                }
+            }
+        }
     }
 
 }
