@@ -1,11 +1,14 @@
 package vdecl.ui
+import com.vaadin.annotations.DesignRoot
 import com.vaadin.data.util.BeanItemContainer
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
-import com.vaadin.shared.ui.label.ContentMode
 import com.vaadin.spring.annotation.SpringView
-import com.vaadin.ui.*
-import com.vaadin.ui.themes.ValoTheme
+import com.vaadin.ui.Button
+import com.vaadin.ui.Label
+import com.vaadin.ui.Table
+import com.vaadin.ui.VerticalLayout
+import com.vaadin.ui.declarative.Design
 import groovy.transform.Canonical
 import groovy.transform.CompileDynamic
 import groovy.util.logging.Slf4j
@@ -21,7 +24,8 @@ import vdecl.FileToComponentService
 
 @Slf4j
 @SpringView(name="")
-class HomeView extends CustomComponent implements View, InitializingBean, DisposableBean {
+@DesignRoot("home.html")
+class HomeView extends VerticalLayout implements View, InitializingBean, DisposableBean {
 
     @Autowired
     Config config
@@ -35,53 +39,17 @@ class HomeView extends CustomComponent implements View, InitializingBean, Dispos
     private final Table table
     private final Label headline
     private final Label legend
+    private final Button watch
 
     private static final List<String> displayCols = ["displayName", "lastModified"]
     private static final String sortCol = "lastModified"
 
     HomeView() {
+        Design.read(this)
         setSizeFull()
-        setCompositionRoot(
-                new VerticalLayout(
-                        headline = new Label().with{
-                            addStyleName(ValoTheme.LABEL_H2)
-                            it
-                        },
-                        new HorizontalLayout(
-                                new Button("Watch for any change").with{
-                                    addClickListener{watch()}
-                                    it
-                                },
-                                new Label("- or pick one file to watch below -").with{
-                                    addStyleName(ValoTheme.LABEL_SMALL)
-                                    it
-                                },
-                        ).with{
-                            setSpacing(true)
-                            setComponentAlignment(getComponent(1), Alignment.MIDDLE_CENTER)
-                            it
-                        },
-                        table = new Table().with{
-                            pageLength = 0
-                            sortEnabled = false
-                            selectable = true
-                            addValueChangeListener{watch(table.value as FileBean)}
-                            setContainerDataSource(new BeanItemContainer<FileBean>(FileBean), displayCols)
-                            setSizeFull()
-                            it
-                        },
-                        legend = new Label().with{
-                            setContentMode(ContentMode.HTML)
-                            it
-                        },
-                ).with{
-                    setSizeFull()
-                    setSpacing(true)
-                    setMargin(true)
-                    setExpandRatio(table, 1.0f)
-                    it
-                }
-        )
+        table.addValueChangeListener{watch(table.value as FileBean)}
+        table.setContainerDataSource(new BeanItemContainer<FileBean>(FileBean), displayCols)
+        watch.addClickListener{watch()}
     }
 
     void watch(FileBean fb=null) {

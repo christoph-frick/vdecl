@@ -1,0 +1,22 @@
+<v-vertical-layout spacing margin size-full>
+    <v-horizontal-layout spacing>
+        <v-label _id="headline" style-name="h2">Watching ...</v-label>
+    </v-horizontal-layout>
+    <v-horizontal-layout spacing>
+        <v-button _id="watch">Watch for any change</v-button>
+        <v-label style-name="small" :middle> - or pick one file to watch from below</v-label>
+    </v-horizontal-layout>
+    <v-table _id="table" sortable :expand page-length="0" width-full>
+        <table>
+            <colgroup>
+                <col property-id="displayName" expand/>
+                <col property-id="lastModified"/>
+            </colgroup>
+            <thead>
+            <th>File</th>
+            <th>Last modified</th>
+            </thead>
+        </table>
+    </v-table>
+    <v-label _id="legend" content-type="html">Legend...</v-label>
+</v-vertical-layout>
