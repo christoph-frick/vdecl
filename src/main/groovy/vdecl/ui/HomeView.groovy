@@ -4,10 +4,7 @@ import com.vaadin.data.util.BeanItemContainer
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
 import com.vaadin.spring.annotation.SpringView
-import com.vaadin.ui.Button
-import com.vaadin.ui.Label
-import com.vaadin.ui.Table
-import com.vaadin.ui.VerticalLayout
+import com.vaadin.ui.*
 import com.vaadin.ui.declarative.Design
 import groovy.transform.Canonical
 import groovy.transform.CompileDynamic
@@ -39,17 +36,32 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
     private final Table table
     private final Label headline
     private final Label legend
+    private final ComboBox theme
     private final Button watch
 
     private static final List<String> displayCols = ["displayName", "lastModified"]
     private static final String sortCol = "lastModified"
 
+    private static final List<String> themes = ["valo", "reindeer", "chameleon", "runo", "liferay"]
+
     HomeView() {
         Design.read(this)
         setSizeFull()
-        table.addValueChangeListener{watch(table.value as FileBean)}
-        table.setContainerDataSource(new BeanItemContainer<FileBean>(FileBean), displayCols)
+        table.with{
+            addValueChangeListener{watch(table.value as FileBean)}
+            setContainerDataSource(new BeanItemContainer<FileBean>(FileBean), displayCols)
+        }
         watch.addClickListener{watch()}
+
+        theme.with{
+            themes.each{ themeName ->
+                addItem(themeName)
+            }
+            value = 'valo'
+            immediate = true
+            nullSelectionAllowed = false
+            addValueChangeListener{ getUI()?.theme = theme.value as String }
+        }
     }
 
     void watch(FileBean fb=null) {
@@ -81,6 +93,7 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
     @Override
     void enter(ViewChangeListener.ViewChangeEvent event) {
         update()
+        theme?.value = getUI()?.theme
     }
 
     @Handler
