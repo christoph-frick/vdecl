@@ -42,21 +42,18 @@ The following file types (by suffix) are supported:
 
 html
  The classic declarative HTML5-ish structure directly supported by Vaadin.
- (`html example
- <https://github.com/christoph-frick/vdecl/blob/master/examples/userdata.html>`_)
+ (`<examples/userdata.html>`_)
 
 gtpl
  This uses the Groovy MarkupTemplateEngine to render the file (without
  model).  It's a great way to mock data, since you can make use of the
  templating features to cut repetitive code.
- (`groovy template example
- <https://github.com/christoph-frick/vdecl/blob/master/examples/headerfooter.gtpl>`_)
+ (`<examples/headerfooter.gtpl>`_)
 
 groovy
  Just use plain old Groovy to write your UI.  A ``GroovyShell`` will pick that
  file type up and execute it.  It must return a ``Component``.
- (`groovy example
- <https://github.com/christoph-frick/vdecl/blob/master/examples/fontawesome.groovy>`_)
+ (`<examples/fontawesome.groovy>`_)
 
 **Experimental**
 
