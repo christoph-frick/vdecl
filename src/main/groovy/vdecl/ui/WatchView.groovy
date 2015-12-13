@@ -44,6 +44,14 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
                 if (!solo || config.relativeFileName(fe.file)==solo) {
                     update(fe.file)
                 }
+                // FIXME: this is just a PoC - put it somewhere sane
+                def themeMatch = fe.file.canonicalPath =~ /.*\/VAADIN\/themes\/(?<theme>[^\/]+)\/.*\.scss/
+                println themeMatch
+                if (themeMatch.matches()) {
+                    def theme = themeMatch.group('theme')
+                    Notification.show("Updating theme ${theme}", Notification.Type.TRAY_NOTIFICATION)
+                    getUI().setTheme(theme)
+                }
             }
         }
     }

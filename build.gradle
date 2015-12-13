@@ -54,6 +54,7 @@ jar {
 vaadin {
 	vaadin.version = vaadinVersion
 	vaadin.push = true
+	vaadin.widgetset = 'vdecl.ui.widgetset'
 }
 
 task wrapper(type: Wrapper) {

@@ -2,10 +2,10 @@
 Vaadin Declarative Design... for developers
 ===========================================
 
-This tool is for developers, who want to write (declarative) UIs with instant
-visual feedback.  A defined directory will be watched for file changes and on
-write all connected browsers will refresh -- no reload, no compile, zero
-roundtrip.
+This tool is for developers, who want to write (declarative) UIs or themes
+with instant visual feedback.  A defined directory (e.g. your `resources`
+directory) will be watched for file changes and on write all connected
+browsers will refresh -- no reload, no compile, zero roundtrip.
 
 
 How to use
@@ -57,6 +57,13 @@ groovy
  file type up and execute it.  It must return a ``Component``.
  (`groovy example
  <https://github.com/christoph-frick/vdecl/blob/master/examples/fontawesome.groovy>`_)
+
+**Experimental**
+
+Any changes to a file matching ``VAADIN/themes/<theme>/**/*.scss`` will
+lead to the UI switching to the `theme` and on further writes reload that
+theme.  For now, this results in the theme disappearing and then reappear,
+which makes it harder to spot minimal changes.
 
 
 Why?

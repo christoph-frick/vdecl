@@ -4,8 +4,6 @@
 vaadin {
 	// debug is managed by vaadin4spring
 	vaadin.debug = false
-	// in 0.9.6 (fixed in 0.9.7) vaadin 7.4 made problems due to opera target
-	vaadin.manageWidgetset = false
 	// we manage repos ourself (failed with gradle 2.1 and 0.8 of the plugin)
 	vaadin.manageRepositories = false
 	// bend the directory to compile the themes into the build dir

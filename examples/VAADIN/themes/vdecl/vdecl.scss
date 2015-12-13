@@ -1,0 +1,7 @@
+@import "blue";
+
+@import "../valo/valo";
+
+@mixin vdecl {
+  @include valo;
+}

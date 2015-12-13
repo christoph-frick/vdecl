@@ -3,7 +3,7 @@
 
 app:
   vaadin:
-    productionMode: "true" # must be string!
+    productionMode: "false" # we always need devmode because of the SASS compiler; must be string!
 
 vaadin:
   servlet:
@@ -33,9 +33,5 @@ interval: 250 # interval in ms passed to the file alteration monitor
 
 spring:
     profiles: dev
-
-app:
-  vaadin:
-    productionMode: "false" # must be string
 
 watch: ./examples
