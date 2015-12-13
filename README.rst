@@ -61,6 +61,7 @@ Any changes to a file matching ``VAADIN/themes/<theme>/**/*.scss`` will
 lead to the UI switching to the `theme` and on further writes reload that
 theme.  For now, this results in the theme disappearing and then reappear,
 which makes it harder to spot minimal changes.
+(`<examples/VAADIN/themes/vdecl/blue.scss>`_)
 
 
 Why?
