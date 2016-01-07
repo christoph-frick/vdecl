@@ -65,7 +65,7 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
         }
     }
 
-    /* FIXME: make the file strategies just use regexps instead of the suffix and integrate this into the regular render cylce */
+    /* FIXME: make the file strategies just use regexps instead of the suffix and integrate this into the regular render cycle */
     void updateTheme(File f) {
         def themeMatch = f.canonicalPath =~ /(?<root>.*\/VAADIN\/themes\/)(?<theme>[^\/]+)\/.*\.scss/
         if (!themeMatch.matches()) {
