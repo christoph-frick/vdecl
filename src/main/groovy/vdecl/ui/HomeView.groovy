@@ -17,7 +17,7 @@ import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import vdecl.Config
 import vdecl.FileEvent
-import vdecl.FileToComponentService
+import vdecl.RenderStrategyService
 
 @Slf4j
 @SpringView(name="")
@@ -28,7 +28,7 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
     Config config
 
     @Autowired
-    FileToComponentService fileToComponentService
+    RenderStrategyService fileToComponentService
 
     @Autowired
     MBassador<FileEvent> eventBus
@@ -119,7 +119,7 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
     private void updateLegend() {
         def sb = new StringWriter()
         new MarkupBuilder(sb).div{
-            h3("Supported formats (suffix)")
+            h3("Supported formats")
             dt{
                 fileToComponentService.legend.each{ suffix, description ->
                     dt{ code(suffix) }

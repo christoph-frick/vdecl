@@ -8,20 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.util.regex.Pattern
 
 @org.springframework.stereotype.Component
-class GroovyTemplateFileToComponentStrategy implements IFileToComponentStrategy {
+class GroovyTemplateRenderStrategy extends ComponentRenderStrategy {
 
-    final Pattern fileNamePattern = ~/.*\.gpt$/
+    final Pattern fileNamePattern = ~/.*\.gtpl$/
     final String description = 'Groovy template'
 
     private MarkupTemplateEngine mte
 
     @Autowired
-    GroovyTemplateFileToComponentStrategy(Config config) {
-         mte = new MarkupTemplateEngine(Thread.currentThread().getContextClassLoader(), config.watchDir, new TemplateConfiguration())
+    GroovyTemplateRenderStrategy(Config config) {
+        def templateConfig = new TemplateConfiguration().with{
+            cacheTemplates = false
+            it
+        }
+        mte = new MarkupTemplateEngine(Thread.currentThread().getContextClassLoader(), config.watchDir, templateConfig)
     }
 
     @Override
-    Component render(File f) {
+    Component renderComponent(File f) {
         f.newReader().withCloseable {
             def tpl = mte.createTemplate(it)
             new ByteArrayOutputStream().withCloseable { bos ->

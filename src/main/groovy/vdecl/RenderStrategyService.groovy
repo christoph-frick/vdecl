@@ -8,20 +8,23 @@ import java.util.regex.Pattern
 
 @Service
 @Slf4j
-class FileToComponentService {
+class RenderStrategyService {
 
     final Map<String,String> legend
-    private final Map<Pattern,IFileToComponentStrategy> patternToStrategy
+    private final Map<Pattern,IRenderStrategy> patternToStrategy
 
     @Autowired
-    FileToComponentService(List<IFileToComponentStrategy> fileToComponentStrategies) {
+    RenderStrategyService(List<IRenderStrategy> fileToComponentStrategies) {
         legend = fileToComponentStrategies.collectEntries{[it.fileNamePattern,it.description]}
         patternToStrategy = fileToComponentStrategies.collectEntries{[it.fileNamePattern, it]}
         log.debug "Found strategies: ${patternToStrategy.collectEntries {[it.key, it.value.getClass().simpleName]}}"
     }
 
-    Optional<IFileToComponentStrategy> getStrategyForFile(File f) {
-        Optional.ofNullable(patternToStrategy.find{ it.key.matcher(f.name).matches() }?.value)
+    Optional<IRenderStrategy> getStrategyForFile(File f) {
+        Optional.ofNullable(
+                patternToStrategy.find{
+                    it.key.matcher(f.canonicalPath).matches()
+                }?.value)
     }
 
     boolean canHandle(File f) {
