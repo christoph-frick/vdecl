@@ -1,6 +1,9 @@
 package vdecl.ui
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
+import com.vaadin.sass.internal.ScssStylesheet
+import com.vaadin.sass.internal.handler.SCSSDocumentHandlerImpl
+import com.vaadin.sass.internal.handler.SCSSErrorHandler
 import com.vaadin.spring.annotation.SpringView
 import com.vaadin.ui.CustomComponent
 import com.vaadin.ui.Label
@@ -44,14 +47,7 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
                 if (!solo || config.relativeFileName(fe.file)==solo) {
                     update(fe.file)
                 }
-                // FIXME: this is just a PoC - put it somewhere sane
-                def themeMatch = fe.file.canonicalPath =~ /.*\/VAADIN\/themes\/(?<theme>[^\/]+)\/.*\.scss/
-                println themeMatch
-                if (themeMatch.matches()) {
-                    def theme = themeMatch.group('theme')
-                    Notification.show("Updating theme ${theme}", Notification.Type.TRAY_NOTIFICATION)
-                    getUI().setTheme(theme)
-                }
+                updateTheme(fe.file)
             }
         }
     }
@@ -66,6 +62,32 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
         catch (Exception e) {
             Notification.show("Failed to update $f.name", e.message, Notification.Type.ERROR_MESSAGE)
             log.error e.message, e
+        }
+    }
+
+    /* FIXME: make the file strategies just use regexps instead of the suffix and integrate this into the regular render cylce */
+    void updateTheme(File f) {
+        def themeMatch = f.canonicalPath =~ /(?<root>.*\/VAADIN\/themes\/)(?<theme>[^\/]+)\/.*\.scss/
+        if (!themeMatch.matches()) {
+            return
+        }
+        def root = themeMatch.group('root')
+        def theme = themeMatch.group('theme')
+        def styles = "${root}${theme}/styles.scss"
+        def errorHandler = new SCSSErrorHandler()
+        try {
+            ScssStylesheet.get(styles, null, new SCSSDocumentHandlerImpl(), errorHandler).compile()
+        }
+        catch (Exception e) {
+            Notification.show("Failed to update theme ${theme}", e.message, Notification.Type.ERROR_MESSAGE)
+            log.error e.message, e
+            return
+        }
+        if (errorHandler.errorsDetected) {
+            Notification.show("Failed to update theme ${theme}", "Errors from compiler, see log", Notification.Type.ERROR_MESSAGE)
+        } else {
+            Notification.show("Updating theme ${theme}", Notification.Type.TRAY_NOTIFICATION)
+            getUI().setTheme(theme)
         }
     }
 
