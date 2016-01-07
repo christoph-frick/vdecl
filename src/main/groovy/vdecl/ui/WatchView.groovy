@@ -83,11 +83,11 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
             log.error e.message, e
             return
         }
-        if (errorHandler.errorsDetected) {
-            Notification.show("Failed to update theme ${theme}", "Errors from compiler, see log", Notification.Type.ERROR_MESSAGE)
-        } else {
+        if (!errorHandler.errorsDetected) {
             Notification.show("Updating theme ${theme}", Notification.Type.TRAY_NOTIFICATION)
             getUI().setTheme(theme)
+        } else {
+            Notification.show("Failed to update theme ${theme}", "Errors from compiler, see log", Notification.Type.ERROR_MESSAGE)
         }
     }
 
