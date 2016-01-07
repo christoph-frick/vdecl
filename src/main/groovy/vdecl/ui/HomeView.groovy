@@ -57,10 +57,13 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
             themes.each{ themeName ->
                 addItem(themeName)
             }
-            value = 'valo'
             immediate = true
-            nullSelectionAllowed = false
-            addValueChangeListener{ getUI()?.theme = theme.value as String }
+            addValueChangeListener{
+                if (theme.value) {
+                    getUI()?.theme = theme.value
+                    theme.value = null
+                }
+            }
         }
     }
 
@@ -93,7 +96,6 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
     @Override
     void enter(ViewChangeListener.ViewChangeEvent event) {
         update()
-        theme?.value = getUI()?.theme
     }
 
     @Handler
