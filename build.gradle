@@ -16,7 +16,7 @@ ext {
     ext {
         groovyVersion = '2.4.5'
         gradleWrapperVersion = '2.9'
-        vaadinVersion = '7.6.0.beta2'
+        vaadinVersion = '7.6.0'
         vaadinSpringVersion = '1.0.0'
     }
     mainClassName = "vdecl.Application"
