@@ -5,10 +5,12 @@ import groovy.text.markup.MarkupTemplateEngine
 import groovy.text.markup.TemplateConfiguration
 import org.springframework.beans.factory.annotation.Autowired
 
+import java.util.regex.Pattern
+
 @org.springframework.stereotype.Component
 class GroovyTemplateFileToComponentStrategy implements IFileToComponentStrategy {
 
-    final String suffix = 'gtpl'
+    final Pattern fileNamePattern = ~/.*\.gpt$/
     final String description = 'Groovy template'
 
     private MarkupTemplateEngine mte
