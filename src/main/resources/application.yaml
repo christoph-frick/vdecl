@@ -21,6 +21,7 @@ spring:
       check-template-location: false
 
 server:
+  port: 9080
   session:
     cookie:
       name: VDECLSESSION

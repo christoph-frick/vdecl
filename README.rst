@@ -18,9 +18,10 @@ the ``watch`` spring boot var to the directory, where your files are:
 
         WATCH=examples java -jar build/libs/vdecl.jar
 
-Open your browser at http://localhost:8080.  You will see a list of all the
-files in that directory.  Either select one file or click the button above the
-list to watch for any change.
+Open your browser at http://localhost:9080 (or use `SERVER_PORT=8080` to start
+on some other port.  You will see a list of all the files in that directory.
+Either select one file or click the button above the list to watch for any
+change.
 
 .. image:: doc/img/vdecl-in-action.gif
 
