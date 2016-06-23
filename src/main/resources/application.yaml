@@ -20,6 +20,11 @@ spring:
     template:
       check-template-location: false
 
+server:
+  session:
+    cookie:
+      name: VDECLSESSION
+
 logging:
   level:
     vdecl: DEBUG
