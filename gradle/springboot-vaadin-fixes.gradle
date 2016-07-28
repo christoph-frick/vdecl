@@ -3,13 +3,11 @@
 // 
 vaadin {
 	// debug is managed by vaadin4spring
-	vaadin.debug = false
-	// we manage repos ourself (failed with gradle 2.1 and 0.8 of the plugin)
-	vaadin.manageRepositories = false
+	vaadinRun.debug = false
 	// bend the directory to compile the themes into the build dir
-	vaadin.plugin.themesDirectory = 'build/resources/main/VAADIN/themes/'
+	vaadinThemeCompile.themesDirectory = 'build/resources/main/VAADIN/themes/'
 	// bend the directory to compile the widgetset into the build dir
-	vaadin.gwt.outputDirectory = file('build/resources/main/')
+	vaadinCompile.outputDirectory = file('build/resources/main/')
 }
 
 //
@@ -17,12 +15,8 @@ vaadin {
 //
 
 // pull in vaadin tasks several of the springboot tasks shall depend on
-jar {
-	dependsOn vaadinCompileWidgetset, vaadinCompileThemes
-}
-bootRun {
-	dependsOn vaadinCompileWidgetset, vaadinCompileThemes
-}
+jar.dependsOn = ["vaadinCompile", "vaadinThemeCompile"]
+bootRun.dependsOn = ["vaadinCompile", "vaadinThemeCompile"]
 bootRepackage.dependsOn = [jar]
 assemble.dependsOn = [bootRepackage, jar]
 
@@ -34,14 +28,14 @@ project.afterEvaluate {
 	// get the runtime vaadin libs into the jar
 	jar {
 		into('lib') {
-			from configurations.vaadin
-			from configurations."vaadin-push"
+			from configurations.'vaadin-server'
+			from configurations.'vaadin-push'
 		}
 	}
 	// pickup the runtime vaadin libs for bootRun
 	bootRun {
-		classpath += configurations.vaadin
-		classpath += configurations."vaadin-push"
+		classpath += configurations.'vaadin-server'
+		classpath += configurations.'vaadin-push'
 	}
 }
 

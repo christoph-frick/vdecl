@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        gradleVaadinPluginVersion = '0.10.7'
+        gradleVaadinPluginVersion = '0.11.1'
         springBootVersion = '1.3.7.RELEASE'
         springLoadedVersion = '1.2.6.RELEASE'
     }
@@ -54,7 +54,7 @@ jar {
 vaadin {
 	vaadin.version = vaadinVersion
 	vaadin.push = true
-	vaadin.widgetset = 'vdecl.ui.widgetset'
+	vaadinCompile.widgetset = 'vdecl.ui.widgetset'
 }
 
 task wrapper(type: Wrapper) {
