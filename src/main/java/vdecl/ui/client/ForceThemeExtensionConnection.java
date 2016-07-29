@@ -21,14 +21,10 @@ public class ForceThemeExtensionConnection extends AbstractExtensionConnector {
             }
 
             public native void onThemeChange(UIConnector ui, String oldTheme, String newTheme) /*-{
-                // TODO: this would be way better to change the theme, but it seems to have no effect
-                //       might be URLs just being the same
-                // var oldThemeUri = ui.@com.vaadin.client.ui.ui.UIConnector::getThemeUrl(*)(oldTheme);
-                // var newThemeUri = ui.@com.vaadin.client.ui.ui.UIConnector::getThemeUrl(*)(newTheme);
-                // ui.@com.vaadin.client.ui.ui.UIConnector::replaceTheme(*)(oldTheme, newTheme, oldThemeUri, newThemeUri);
-
-                // this is way more aggressive and it results in the UI going no-theme first, then loads the changed one
-                ui.@com.vaadin.client.ui.ui.UIConnector::activateTheme(*)(null);
+                var oldThemeUri = ui.@com.vaadin.client.ui.ui.UIConnector::getThemeUrl(*)(oldTheme);
+                var newThemeUri = ui.@com.vaadin.client.ui.ui.UIConnector::getThemeUrl(*)(newTheme);
+                ui.@com.vaadin.client.ui.ui.UIConnector::replaceTheme(*)(oldTheme, null, oldThemeUri, null);
+                ui.@com.vaadin.client.ui.ui.UIConnector::replaceTheme(*)(oldTheme, newTheme, oldThemeUri, newThemeUri);
             }-*/;
         });
     }
