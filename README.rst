@@ -56,6 +56,11 @@ groovy
  file type up and execute it.  It must return a ``Component``.
  (`<examples/fontawesome.groovy>`_)
 
+clj
+ Use the result of the Clojure file and send if through ``sexp-as-element``
+ from `clojure/data.xml <https://github.com/clojure/data.xml>`_.
+ (`<examples/login.clj>`_)
+
 **Experimental**
 
 Any changes to a file matching ``VAADIN/themes/<theme>/**/*.scss`` will
