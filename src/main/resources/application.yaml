@@ -30,6 +30,7 @@ logging:
   level:
     vdecl: DEBUG
     com.vaadin: WARN
+    com.vaadin.ui.UI: INFO
     org.atmosphere: WARN
     org.springframework: WARN
 
