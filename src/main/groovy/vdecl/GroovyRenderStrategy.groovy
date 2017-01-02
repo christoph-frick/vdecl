@@ -7,7 +7,7 @@ import java.util.regex.Pattern
 class GroovyRenderStrategy extends ComponentRenderStrategy {
 
     final Pattern fileNamePattern = ~/.*\.groovy$/
-    final String description = 'Groovy script'
+    final String description = 'Groovy'
 
     @Override
     Component renderComponent(File f) {
