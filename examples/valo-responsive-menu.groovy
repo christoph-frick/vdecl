@@ -1,8 +1,8 @@
-import com.vaadin.ui.*
+import com.vaadin.icons.VaadinIcons
 import com.vaadin.server.Responsive
+import com.vaadin.shared.ui.ContentMode
+import com.vaadin.ui.*
 import com.vaadin.ui.themes.ValoTheme
-import com.vaadin.server.FontAwesome
-import com.vaadin.shared.ui.label.ContentMode
 
 class MainMenu extends CssLayout {
 
@@ -27,7 +27,7 @@ class MainMenu extends CssLayout {
 				it
 			},
 			new Button("Menu").with{
-				setIcon(FontAwesome.LIST)
+				setIcon(VaadinIcons.LIST)
 				addStyleName("primary small valo-menu-toggle")
 				addClickListener{ toggleMenu() }
 				it
@@ -73,9 +73,9 @@ def _dummyContent = {
 new HorizontalLayout( // layout for page; needs some responsive setup too (see below)
 	new MainMenu().with{ // the menu
 		setTitle("Corp Inc. <strong>Application</strong>")
-		addMenuItem(new Button(caption:"Home", icon:FontAwesome.HOME))
-		addMenuItem(new Button(caption:"Users", icon:FontAwesome.USERS))
-		addMenuItem(new Button(caption:"Corp Stuff", icon:FontAwesome.PAPER_PLANE))
+		addMenuItem(new Button(caption:"Home", icon:VaadinIcons.HOME))
+		addMenuItem(new Button(caption:"Users", icon:VaadinIcons.USERS))
+		addMenuItem(new Button(caption:"Corp Stuff", icon:VaadinIcons.PAPERPLANE))
 		it
 	}, 
 	new Panel( // make the main content scrollable

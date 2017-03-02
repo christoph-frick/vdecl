@@ -1,21 +1,20 @@
-import com.vaadin.event.FieldEvents
+import com.vaadin.data.HasValue
+import com.vaadin.icons.VaadinIcons
 import com.vaadin.server.FontAwesome
 import com.vaadin.ui.*
-
-import static com.vaadin.ui.AbstractTextField.TextChangeEventMode.*
 
 new Panel().with{
 	GridLayout grid
 	def fonticon = { fi ->
 		new Label().with{
-			caption = "${fi.name()} (0x${Integer.toString(fi.codepoint, 16)})"
+			caption = "${fi.getClass().simpleName}.${fi.name()} (0x${Integer.toString(fi.codepoint, 16)})"
 			icon = fi
 			it
 		}
 	}
 	def updateGrid = { filter ->
 		grid.removeAllComponents()
-		FontAwesome.values().findAll(filter).each { fi ->
+		(VaadinIcons.values() + FontAwesome.values()).findAll(filter).each { fi ->
 			grid.addComponent(fonticon(fi))
 		}
 	}
@@ -23,11 +22,10 @@ new Panel().with{
 			new VerticalLayout().with {
 				addComponent(
 						new TextField().with{
-							setInputPrompt("Search...")
-							setTextChangeEventMode(EAGER)
-							addTextChangeListener({ FieldEvents.TextChangeEvent e ->
-								if (e.text) {
-									updateGrid{ it.name().toLowerCase().contains(e.text.toLowerCase()) }
+							setPlaceholder("Search...")
+							addValueChangeListener({ HasValue.ValueChangeEvent<String> e ->
+								if (e.value) {
+									updateGrid{ it.name().toLowerCase().contains(e.value.toLowerCase()) }
 								} else {
 									updateGrid{true}
 								}
