@@ -1,9 +1,14 @@
 buildscript {
     ext {
-        gradleVaadinPluginVersion = '0.11.4'
-        springBootVersion = '1.4.3.RELEASE'
+        gradleVaadinPluginVersion = '1.1.4'
+        springBootVersion = '1.4.4.RELEASE'
     }
-    repositories.jcenter()
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
     dependencies {
         classpath "fi.jasoft.plugin:gradle-vaadin-plugin:$gradleVaadinPluginVersion"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
@@ -12,11 +17,11 @@ buildscript {
 
 ext {
     ext {
-        groovyVersion = '2.4.7'
+        groovyVersion = '2.4.8'
         clojureVersion = '1.8.0'
-        gradleWrapperVersion = '3.2.1'
-        vaadinVersion = '7.7.6'
-        vaadinSpringVersion = '1.0.0'
+        gradleWrapperVersion = '3.4'
+        vaadinVersion = '8.0.0'
+        vaadinSpringVersion = '2.0.0'
     }
     mainClassName = "vdecl.Application"
 }

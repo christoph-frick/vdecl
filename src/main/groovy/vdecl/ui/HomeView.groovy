@@ -1,8 +1,9 @@
 package vdecl.ui
 import com.vaadin.annotations.DesignRoot
-import com.vaadin.data.util.BeanItemContainer
+import com.vaadin.data.ValueProvider
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
+import com.vaadin.shared.data.sort.SortDirection
 import com.vaadin.spring.annotation.SpringView
 import com.vaadin.ui.*
 import com.vaadin.ui.declarative.Design
@@ -33,31 +34,30 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
     @Autowired
     MBassador<FileEvent> eventBus
 
-    private final Table table
+    private final Set<FileBean> fileBeans = []
+    private final Grid<FileBean> grid
     private final Label headline
     private final Label legend
     private final ComboBox theme
     private final Button watch
 
-    private static final List<String> displayCols = ["displayName", "lastModified"]
-    private static final String sortCol = "lastModified"
-
-    private static final List<String> themes = ["valo", "reindeer", "chameleon", "runo", "liferay"]
+    private static final List<String> themes = ["valo"]
 
     HomeView() {
         Design.read(this)
         setSizeFull()
-        table.with{
-            addValueChangeListener{watch(table.value as FileBean)}
-            setContainerDataSource(new BeanItemContainer<FileBean>(FileBean), displayCols)
-        }
+        grid.asSingleSelect().addValueChangeListener { watch(it.value) }
+        grid.addColumn({FileBean it -> it.displayName} as ValueProvider).
+                setCaption('File name').
+                setExpandRatio(1).
+                setId('displayName')
+        grid.addColumn({FileBean it -> it.lastModified} as ValueProvider).
+                setCaption('Last modified').
+                setId('lastModified')
+        grid.sort('lastModified', SortDirection.DESCENDING)
         watch.addClickListener{watch()}
-
         theme.with{
-            themes.each{ themeName ->
-                addItem(themeName)
-            }
-            immediate = true
+            setItems(themes)
             addValueChangeListener{
                 if (theme.value) {
                     getUI()?.theme = theme.value
@@ -72,25 +72,29 @@ class HomeView extends VerticalLayout implements View, InitializingBean, Disposa
     }
 
     void update() {
-        table.containerDataSource.removeAllItems()
+        fileBeans.clear()
         config.watchDir.eachFileRecurse {
             if (it.isFile()) {
-                update(it)
+                update(it, false)
             }
         }
+        grid.setItems(fileBeans)
     }
 
-    void update(File f) {
+    void update(File f, Boolean immediate=true) {
         if (fileToComponentService.canHandle(f)) {
-            (table.containerDataSource as BeanItemContainer<FileBean>).with{
-                addItem(new FileBean(config, f))
-                sort([sortCol].toArray(), false)
+            fileBeans.add(new FileBean(config, f))
+            if (immediate) {
+                grid.setItems(fileBeans)
             }
         }
     }
 
-    void remove(File f) {
-        table.containerDataSource.removeItem(new FileBean(config, f))
+    void remove(File f, Boolean immediate=true) {
+        fileBeans.remove(new FileBean(config, f))
+        if (immediate) {
+            grid.setItems(fileBeans)
+        }
     }
 
     @Override
