@@ -4,8 +4,6 @@
 vaadin {
 	// debug is managed by vaadin4spring
 	vaadinRun.debug = false
-	// bend the directory to compile the themes into the build dir
-	vaadinThemeCompile.themesDirectory = 'build/resources/main/VAADIN/themes/'
 	// bend the directory to compile the widgetset into the build dir
 	vaadinCompile.outputDirectory = file('build/resources/main/')
 }

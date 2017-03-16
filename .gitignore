@@ -8,3 +8,4 @@
 /.nb-gradle-properties
 /.nb-gradle/
 /hs_err_pid*.log
+/src/main/webapp/
