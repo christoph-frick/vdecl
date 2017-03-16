@@ -17,21 +17,12 @@ vaadin {
 // pull in vaadin tasks several of the springboot tasks shall depend on
 jar.dependsOn = ["vaadinCompile", "vaadinThemeCompile"]
 bootRun.dependsOn = ["vaadinCompile", "vaadinThemeCompile"]
-bootRepackage.dependsOn = [jar]
-assemble.dependsOn = [bootRepackage, jar]
 
 // pass sysprops down to bootRun, so we can add them in configs in intellij
 bootRun.systemProperties = System.properties
 
 // must be done last, so both plugins setup their stuff already
 project.afterEvaluate {
-	// get the runtime vaadin libs into the jar
-	jar {
-		into('lib') {
-			from configurations.'vaadin-server'
-			from configurations.'vaadin-push'
-		}
-	}
 	// pickup the runtime vaadin libs for bootRun
 	bootRun {
 		classpath += configurations.'vaadin-server'

@@ -16,7 +16,7 @@ the ``watch`` spring boot var to the directory, where your files are:
 
 .. code:: shell
 
-        WATCH=examples java -jar build/libs/vdecl.jar
+        WATCH=examples java -jar build/libs/vdecl.war
 
 Open your browser at http://localhost:9080/?debug (or use `SERVER_PORT=8080`
 to start on some other port.  You will see a list of all the files in that
