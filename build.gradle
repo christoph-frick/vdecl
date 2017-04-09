@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        gradleVaadinPluginVersion = '1.1.6'
+        gradleVaadinPluginVersion = '1.1.8'
         springBootVersion = '1.4.5.RELEASE'
     }
     repositories {
