@@ -17,11 +17,11 @@ buildscript {
 
 ext {
     ext {
-        groovyVersion = '2.4.8'
+        groovyVersion = '2.4.10'
         clojureVersion = '1.8.0'
         gradleWrapperVersion = '3.4'
-        vaadinVersion = '8.0.2'
-        vaadinSpringVersion = '2.0.0'
+        vaadinVersion = '8.0.5'
+        vaadinSpringVersion = '2.0.1'
     }
     mainClassName = "vdecl.Application"
 }
