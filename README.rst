@@ -7,6 +7,18 @@ with instant visual feedback.  A defined directory (e.g. your `resources`
 directory) will be watched for file changes and on write all connected
 browsers will refresh -- no reload, no compile, zero roundtrip.
 
+.. image:: doc/img/vdecl-in-action.gif
+
+
+Vaadin versions supported
+=========================
+
+Vaadin 8
+ `master` Branch; actively maintained
+
+Vaadin 7
+ `vaadin-7` Branch;  now End-Of-Life, but should be good to run with higher 7.x
+ versions
 
 How to use
 ==========
@@ -22,8 +34,6 @@ Open your browser at http://localhost:9080/?debug (or use `SERVER_PORT=8080`
 to start on some other port.  You will see a list of all the files in that
 directory.  Either select one file or click the button above the list to watch
 for any change.
-
-.. image:: doc/img/vdecl-in-action.gif
 
 The ``examples`` directory contains some small examples to start with.  Open
 the one selected to watch in the browser in your favourite editor and make a
