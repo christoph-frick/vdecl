@@ -66,7 +66,8 @@ clj
 Any changes to a file matching ``VAADIN/themes/<theme>/**/*.scss`` will
 lead to the UI switching to the `theme` and on further writes reload that
 theme.  For now, this results in the theme disappearing and then reappear,
-which makes it harder to spot minimal changes.
+which makes it harder to spot minimal changes.  This currently only works,
+if the browsers devtools are opened to disable caching.
 (`<examples/VAADIN/themes/vdecl/blue.scss>`_)
 
 
