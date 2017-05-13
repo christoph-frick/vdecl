@@ -14,11 +14,11 @@ Vaadin versions supported
 =========================
 
 Vaadin 8
- `master` Branch; actively maintained
+ ``master`` branch; actively maintained
 
 Vaadin 7
- `vaadin-7` Branch;  now End-Of-Life, but should be good to run with higher 7.x
- versions
+ ``vaadin-7`` branch;  now End-Of-Life, but should be good to run with higher
+ 7.x versions
 
 How to use
 ==========
