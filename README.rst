@@ -64,7 +64,7 @@ gtpl
 groovy
  Just use plain old Groovy to write your UI.  A ``GroovyShell`` will pick that
  file type up and execute it.  It must return a ``Component``.
- (`<examples/fontawesome.groovy>`_)
+ (`<examples/iconsearch.groovy>`_)
 
 clj
  Use the result of the Clojure file and send if through ``sexp-as-element``
