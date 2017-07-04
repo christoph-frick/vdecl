@@ -2,10 +2,13 @@ package vdecl.ui
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
 import com.vaadin.spring.annotation.SpringView
+import com.vaadin.ui.Alignment
 import com.vaadin.ui.Component
 import com.vaadin.ui.CustomComponent
 import com.vaadin.ui.Label
 import com.vaadin.ui.Notification
+import com.vaadin.ui.VerticalLayout
+import com.vaadin.ui.themes.ValoTheme
 import groovy.util.logging.Slf4j
 import net.engio.mbassy.bus.MBassador
 import net.engio.mbassy.listener.Handler
@@ -80,7 +83,20 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
         if (solo) {
             update(solo)
         } else {
-            setCompositionRoot(new Label("Waiting for first file change in ${config.watchDir} ..."))
+            setCompositionRoot(
+                    new VerticalLayout(
+                            new Label("Waiting for first file change in ${config.watchDir} ...").with{
+                                addStyleName(ValoTheme.LABEL_LIGHT)
+                                addStyleName(ValoTheme.LABEL_HUGE)
+                                setSizeUndefined()
+                                it
+                            }
+                    ).with{
+                        setSizeFull()
+                        setComponentAlignment(getComponent(0), Alignment.MIDDLE_CENTER)
+                        it
+                    }
+            )
         }
     }
 
