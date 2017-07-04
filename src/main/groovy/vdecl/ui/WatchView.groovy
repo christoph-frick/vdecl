@@ -1,13 +1,11 @@
 package vdecl.ui
+import com.vaadin.event.Action
+import com.vaadin.event.ShortcutAction
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
 import com.vaadin.spring.annotation.SpringView
-import com.vaadin.ui.Alignment
-import com.vaadin.ui.Component
-import com.vaadin.ui.CustomComponent
-import com.vaadin.ui.Label
-import com.vaadin.ui.Notification
-import com.vaadin.ui.VerticalLayout
+import com.vaadin.ui.*
+import com.vaadin.ui.declarative.Design
 import com.vaadin.ui.themes.ValoTheme
 import groovy.util.logging.Slf4j
 import net.engio.mbassy.bus.MBassador
@@ -17,12 +15,14 @@ import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Autowired
 import vdecl.Config
 import vdecl.FileEvent
-import vdecl.RenderStrategyService
 import vdecl.IRenderTarget
+import vdecl.RenderStrategyService
+
+import java.nio.file.Files
 
 @Slf4j
 @SpringView(name="watch")
-class WatchView extends CustomComponent implements View, InitializingBean, DisposableBean, IRenderTarget {
+class WatchView extends CustomComponent implements View, InitializingBean, DisposableBean, IRenderTarget, Action.Handler {
 
     @Autowired
     MBassador<FileEvent> eventBus
@@ -33,8 +33,25 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
     @Autowired
     Config config
 
+    final Action[] actions
+
     WatchView() {
         setSizeFull()
+        actions = [
+                new ShortcutAction("Save with F4",
+                        ShortcutAction.KeyCode.F4
+                )
+        ] as Action[]
+    }
+
+    @Override
+    Action[] getActions(Object target, Object sender) {
+        return actions
+    }
+
+    @Override
+    void handleAction(Action action, Object sender, Object target) {
+        save()
     }
 
     private File solo
@@ -51,6 +68,24 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
                     update(solo)
                 }
             }
+        }
+    }
+
+    void save() {
+        try {
+            def tempFile = Files.createTempFile("vdecl-export-", ".html")
+            tempFile.withOutputStream { os ->
+                Design.write(compositionRoot, os)
+            }
+            Notification.show(
+                    "Current layout saved",
+                    tempFile.toAbsolutePath().toString(),
+                    Notification.Type.HUMANIZED_MESSAGE
+            )
+        }
+        catch (Exception e) {
+            Notification.show("Failed to save file", e.message, Notification.Type.ERROR_MESSAGE)
+            log.error e.message, e
         }
     }
 
@@ -79,6 +114,7 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
 
     @Override
     void enter(ViewChangeListener.ViewChangeEvent event) {
+        getUI().addActionHandler(this)
         solo = event.parameters ? config.absoluteFile(event.parameters) : null
         if (solo) {
             update(solo)

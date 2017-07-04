@@ -46,6 +46,17 @@ can share with others or to use with multiple devices or browsers.  All
 connected clients will refresh automatically.
 
 
+Additional functions
+====================
+
+The following keyboard shortcut is currently available (only working in Chrome
+and not Firefox right now):
+
+F4
+  Save the current viewed content into a temp file; the generated file name is
+  displayed after the successful save.
+
+
 Supported formats
 =================
 

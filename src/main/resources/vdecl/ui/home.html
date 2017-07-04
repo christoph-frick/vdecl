@@ -8,5 +8,13 @@
         <v-label style-name="small" :middle> - or pick one file to watch from below</v-label>
     </v-horizontal-layout>
     <v-grid _id="grid" sortable :expand page-length="0" size-full></v-grid>
-    <v-label _id="legend" content-type="html">Legend...</v-label>
+    <v-horizontal-layout spacing width-full>
+        <v-label _id="legend" content-type="html">Legend...</v-label>
+        <v-label content-type="html">
+            <h3>Functions</h3>
+            <dl>
+                <dt>F4</dt><dd>Save the current layout as a temp file</dd>
+            </dl>
+        </v-label>
+    </v-horizontal-layout>
 </v-vertical-layout>
