@@ -32,7 +32,6 @@ logging:
     com.vaadin: WARN
     com.vaadin.ui.UI: INFO
     org.atmosphere: WARN
-    org.springframework: WARN
 
 watch: ./ # directory to watch
 interval: 250 # interval in ms passed to the file alteration monitor
