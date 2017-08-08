@@ -23,12 +23,13 @@ Vaadin 7
 How to use
 ==========
 
-Fetch this repo, and build it with ``./gradlew build``.  Then run it and set
-the ``watch`` spring boot var to the directory, where your files are:
+Either download the ``vdecl.jar`` from the releases here at GitHub or fetch
+this repo, and build it with ``./gradlew build``.  Then run it and set the
+``watch`` spring boot var to the directory, where your files are:
 
 .. code:: shell
 
-        WATCH=examples java -jar build/libs/vdecl.war
+        WATCH=examples java -jar build/libs/vdecl.jar
 
 Open your browser at http://localhost:9080/?debug (or use `SERVER_PORT=8080`
 to start on some other port.  You will see a list of all the files in that
