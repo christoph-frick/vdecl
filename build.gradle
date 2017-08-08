@@ -1,13 +1,13 @@
 buildscript {
     repositories.jcenter()
     dependencies {
-        classpath(group: 'org.springframework', name: 'springloaded', version: '1.2.7.RELEASE')
+        classpath("org.springframework:springloaded:1.2.7.RELEASE")
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '1.5.3.RELEASE'
-    id 'fi.jasoft.plugin.vaadin' version '1.1.12'
+    id 'org.springframework.boot' version '1.5.6.RELEASE'
+    id 'com.devsoap.plugin.vaadin' version '1.2.1'
     id 'com.palantir.git-version' version '0.4.0'
 }
 
@@ -15,8 +15,8 @@ ext {
     ext {
         groovyVersion = '2.4.12'
         clojureVersion = '1.8.0'
-        gradleWrapperVersion = '3.5'
-        vaadinVersion = '8.0.6'
+        gradleWrapperVersion = '4.1'
+        vaadinVersion = '8.1.1'
         vaadinSpringVersion = '2.0.1'
     }
     mainClassName = "vdecl.Application"
@@ -40,19 +40,19 @@ compileGroovy {
 	groovyOptions.configurationScript = file("gradle/groovyOptions.groovy")
 }
 
-war {
+jar {
     baseName = 'vdecl'
-    version = null
+    version = null // no version in the filename
     manifest {
-        attributes 'Main-Class': mainClassName
+        attributes 'Main-Class': mainClassName // Allow to run with `java -jar app.jar`
     }
 }
 
-bootRun.systemProperties = System.properties
+bootRun.systemProperties = System.properties // pass sysprops down to bootRun, so we can add them in configs in intellij
 
 vaadin {
-	vaadin.version = vaadinVersion
-	vaadin.push = true
+	version = vaadinVersion
+	push = true
 	vaadinCompile.widgetset = 'vdecl.ui.widgetset'
 	vaadinCompile.outputDirectory = file('build/resources/main/')
 }
@@ -67,6 +67,7 @@ dependencies {
     compile "org.clojure:data.xml:0.0.8"
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile("com.vaadin:vaadin-spring-boot-starter:${vaadinSpringVersion}")
+    compile("com.vaadin:vaadin-push:${vaadinVersion}") // FIXME: needed to get the push jars into the fatjar, should be the job of the plugin?
     compile 'commons-io:commons-io:2.5'
     compile 'net.engio:mbassador:1.3.0'
 }
