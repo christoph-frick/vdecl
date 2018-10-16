@@ -3,6 +3,8 @@ import com.vaadin.event.Action
 import com.vaadin.event.ShortcutAction
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
+import com.vaadin.server.Page
+import com.vaadin.shared.Position
 import com.vaadin.spring.annotation.SpringView
 import com.vaadin.ui.*
 import com.vaadin.ui.declarative.Design
@@ -97,7 +99,11 @@ class WatchView extends CustomComponent implements View, InitializingBean, Dispo
             }
         }
         catch (Exception e) {
-            Notification.show("Failed to update $f.name", e.message, Notification.Type.ERROR_MESSAGE)
+            new Notification("Failed to update $f.name", e.message, Notification.Type.ERROR_MESSAGE).with{
+                setPosition(Position.BOTTOM_RIGHT)
+                setDelayMsec(3000)
+                show(Page.current)
+            }
             log.error e.message, e
         }
     }
