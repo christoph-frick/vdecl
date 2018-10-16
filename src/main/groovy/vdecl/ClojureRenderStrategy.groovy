@@ -18,6 +18,7 @@ class ClojureRenderStrategy extends ComponentRenderStrategy {
     ClojureRenderStrategy() {
         def require = Clojure.var("clojure.core", "require");
         require.invoke(Clojure.read("clojure.data.xml"))
+        require.invoke(Clojure.read("clojure.main"))
     }
 
     @Override
@@ -25,9 +26,7 @@ class ClojureRenderStrategy extends ComponentRenderStrategy {
         def out = new StringWriter()
         Clojure.var("clojure.data.xml", "emit").invoke(
                 Clojure.var("clojure.data.xml", "sexp-as-element").invoke(
-                        Clojure.var('clojure.core', 'eval').invoke(
-                                Clojure.read(f.text)
-                        )
+                        Clojure.var('clojure.main', 'load-script').invoke(f.canonicalPath)
                 ),
                 out
         )
