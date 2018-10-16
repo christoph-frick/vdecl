@@ -26,9 +26,7 @@ class ClojureRenderStrategy extends ComponentRenderStrategy {
         Clojure.var("clojure.data.xml", "emit").invoke(
                 Clojure.var("clojure.data.xml", "sexp-as-element").invoke(
                         Clojure.var('clojure.core', 'eval').invoke(
-                                Clojure.read(
-                                        Clojure.var('clojure.core', 'slurp').invoke(f) as String
-                                )
+                                Clojure.read(f.text)
                         )
                 ),
                 out
