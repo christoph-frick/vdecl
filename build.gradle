@@ -63,6 +63,7 @@ dependencies {
     compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
     compile "org.clojure:clojure:${clojureVersion}"
     compile "org.clojure:data.xml:0.0.8"
+    compile "org.clojure:test.check:0.9.0"
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile("com.vaadin:vaadin-spring-boot-starter:${vaadinSpringVersion}")
     compile("com.vaadin:vaadin-push:${vaadinVersion}") // FIXME: needed to get the push jars into the fatjar, should be the job of the plugin?
