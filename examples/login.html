@@ -2,8 +2,8 @@
 	<v-label style-name="h1 colored" :center :expand=0.2 size-auto>Corp Inc <strong>App</strong></v-label>
 	<v-panel caption="Please Login To Continue" :expand=0.8 :center width="40%">
 		<v-vertical-layout size-full margin spacing>
-			<v-label _id=error style-name="failure" visible=false>Error message here</v-label>
-			<v-text-field _id=username size-full input-prompt="user@example.com" caption="Username" />
+			<v-label _id=error style-name="failure" visible=false size-full>Error message here</v-label>
+			<v-text-field _id=username size-full placeHolder="user@example.com" caption="Username" />
 			<v-password-field _id=password size-full caption="Password" />
 			<v-horizontal-layout spacing width="100%">
 				<v-button>Cancel</v-button>
